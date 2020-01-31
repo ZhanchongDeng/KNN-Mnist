@@ -64,6 +64,10 @@ class KNN:
         predictions = self.fit(k, data, labels)
         return np.mean(predictions != labels)
     
+    '''
+    This method apply projections upon the given data
+    '''
+    
 '''
 Calculate square distance from given data to original data.
 Returns an integer representing the distance away from the given data.
@@ -84,3 +88,13 @@ def find_mode(labels):
     maxes = uniques[counts == np.amax(counts)]
     # Apply randomness if there are more than one
     return maxes[random.randint(0, len(maxes)-1)]
+
+'''
+This method reads the projection matrix to reduce the dimension of the images.
+Return a ndarray representing the projection matrix.
+'''
+def read_projection(fp):
+    projection = open(fp, 'r')
+    projection.seek(0)
+    raw_rows = projection.read().split("\n")[:-1]
+    return np.array([np.array(entry[0:-1].split(" "), dtype="float") for entry in raw_rows])
