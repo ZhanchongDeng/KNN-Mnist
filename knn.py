@@ -50,6 +50,20 @@ class KNN:
         kth_nearest = pd.DataFrame({"distance":distance, "labels":self.labels}).sort_values("distance")[:k]
         return find_mode(kth_nearest['labels'])
     
+    '''
+    This method predicts based on given data, similar to error_rate.
+    Returns an array of predictions given k level and test/validation data/labels.
+    '''
+    def fit(self, k, data, labels):
+        return np.array([self.predict(entry,k) for entry in data])
+    '''
+    This method calculates the error given a set of labels compared.
+    Return a percentage indicating how much error made.
+    '''
+    def error_rate(self, k, data, labels):
+        predictions = self.fit(k, data, labels)
+        return np.mean(predictions != labels)
+    
 '''
 Calculate square distance from given data to original data.
 Returns an integer representing the distance away from the given data.
