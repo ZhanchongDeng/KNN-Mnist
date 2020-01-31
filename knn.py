@@ -65,8 +65,10 @@ class KNN:
         return np.mean(predictions != labels)
     
     '''
-    This method apply projections upon the given data
+    This method apply projections upon the model.
     '''
+    def project_data(self, projection):
+        self.model = np.array([np.dot(data, projection) for data in self.model])
     
 '''
 Calculate square distance from given data to original data.
